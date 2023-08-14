@@ -6,6 +6,10 @@ import ejercicio1.figurasGeometricas.Circulo;
 import ejercicio1.figurasGeometricas.Cuadrado;
 import ejercicio1.figurasGeometricas.Triangulo;
 import ejercicio1.figurasGeometricas.interfaces.IFigurasGeometricas;
+import ejercicio2.sistemanotificaciones.CorreoElectronico;
+import ejercicio2.sistemanotificaciones.MensajeTexto;
+import ejercicio2.sistemanotificaciones.NotificacionPush;
+import ejercicio2.sistemanotificaciones.interfaces.ISistemaNotificaciones;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -30,6 +34,21 @@ public class App {
                 }
                 break;
             case 2:
+                // Ejercicio 2 --->Sistema de notificaciones
+                ISistemaNotificaciones correoElectronico = new CorreoElectronico(
+                        "Su factura del agua ha sido pagada con exito");
+                ISistemaNotificaciones mensajeTexto = new MensajeTexto(
+                        "Su factura del agua ha sido pagada con exito");
+                ISistemaNotificaciones notificacionPush = new NotificacionPush(
+                        "Su factura del agua ha sido pagada con exito");
+                List<ISistemaNotificaciones> tiposMensaje = new ArrayList<>();
+                tiposMensaje.add(correoElectronico);
+                tiposMensaje.add(mensajeTexto);
+                tiposMensaje.add(notificacionPush);
+                tiposMensaje.forEach(
+                        tipoMensaje -> {
+                            tipoMensaje.enviar();
+                        });
                 break;
             case 3:
                 break;
@@ -48,7 +67,7 @@ public class App {
             case 10:
                 break;
         }
-
+        sc.close();
     }
 
 }
