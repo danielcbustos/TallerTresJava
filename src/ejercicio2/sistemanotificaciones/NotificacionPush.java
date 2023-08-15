@@ -1,8 +1,6 @@
 package ejercicio2.sistemanotificaciones;
 
-import ejercicio2.sistemanotificaciones.interfaces.ISistemaNotificaciones;
-
-public class NotificacionPush extends TipoNotificaciones implements ISistemaNotificaciones {
+public class NotificacionPush extends TipoNotificaciones {
 
     public NotificacionPush(String mensaje) {
         super(mensaje);

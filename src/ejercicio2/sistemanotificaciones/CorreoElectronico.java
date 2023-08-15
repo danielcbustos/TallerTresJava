@@ -1,8 +1,6 @@
 package ejercicio2.sistemanotificaciones;
 
-import ejercicio2.sistemanotificaciones.interfaces.ISistemaNotificaciones;
-
-public class CorreoElectronico extends TipoNotificaciones implements ISistemaNotificaciones {
+public class CorreoElectronico extends TipoNotificaciones {
 
     public CorreoElectronico(String mensaje) {
         super(mensaje);
