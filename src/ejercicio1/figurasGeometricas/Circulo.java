@@ -1,11 +1,10 @@
 package ejercicio1.figurasGeometricas;
 
-import ejercicio1.figurasGeometricas.interfaces.IFigurasGeometricas;
-
-public class Circulo implements IFigurasGeometricas {
+public class Circulo extends Figura {
     private double radio;
 
     public Circulo(double radio) {
+        super("Circulo");
         this.radio = radio;
     }
 

@@ -1,13 +1,12 @@
 package ejercicio1.figurasGeometricas;
 
-import ejercicio1.figurasGeometricas.interfaces.IFigurasGeometricas;
-
-public class Triangulo implements IFigurasGeometricas {
+public class Triangulo extends Figura {
     private double ladoA;
     private double ladoB;
     private double ladoC;
 
     public Triangulo(double ladoA, double ladoB, double ladoC) {
+        super("Triangulo");
         this.ladoA = ladoA;
         this.ladoB = ladoB;
         this.ladoC = ladoC;
