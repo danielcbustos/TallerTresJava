@@ -10,64 +10,199 @@ import ejercicio2.sistemanotificaciones.CorreoElectronico;
 import ejercicio2.sistemanotificaciones.MensajeTexto;
 import ejercicio2.sistemanotificaciones.NotificacionPush;
 import ejercicio2.sistemanotificaciones.interfaces.ISistemaNotificaciones;
+import ejercicio3.bancoycuentas.CuentaAhorro;
+import ejercicio3.bancoycuentas.CuentaCorriente;
+import ejercicio3.bancoycuentas.interfaces.ISistemaBancario;
+import ejercicio5.tiendaenlinea.Electronica;
+import ejercicio5.tiendaenlinea.Libro;
+import ejercicio5.tiendaenlinea.Ropa;
+import ejercicio5.tiendaenlinea.interfaces.ISistemaTienda;
+import ejercicio6.animalesysonidos.Gato;
+import ejercicio6.animalesysonidos.Pajaro;
+import ejercicio6.animalesysonidos.Perro;
+import ejercicio6.animalesysonidos.TipoAnimales;
+import ejercicio7.formasgeometricasyareas.Circulo2;
+import ejercicio7.formasgeometricasyareas.Triangulo2;
+import ejercicio7.formasgeometricasyareas.Cuadrado2;
+import ejercicio7.formasgeometricasyareas.interfaces.IFormasGeometricas;
 
 public class App {
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Digita el numero del ejercicio que deseas visualizar (1 a 10)");
-        System.out.println(
-                "1. Figuras Geometricas \n2. Sistema de notificaciones \n3. Banco y cuentas \n4. Juego de cartas \n5. Tienda en linea \n6. Animales y sonido \n7. Formas geometricas y areas \n8. Empleados y salarios \n9. Instrumentos musicales \n10. Figuras en un lienzo");
-        int numEjercicio = sc.nextInt();
-        switch (numEjercicio) {
-            case 1:
-                // Ejercicio 1 --->Figuras Geometricas
-                IFigurasGeometricas cuadrado = new Cuadrado(6);
-                IFigurasGeometricas triangulo = new Triangulo(2, 5, 6);
-                IFigurasGeometricas circulo = new Circulo(7);
-                List<IFigurasGeometricas> figurasGeometricas = new ArrayList<>();
-                figurasGeometricas.add(cuadrado);
-                figurasGeometricas.add(triangulo);
-                figurasGeometricas.add(circulo);
+        boolean repetirMenuPrincipal = true;
+        int contadorContinuar = 0;
+        while (repetirMenuPrincipal) {
+            contadorContinuar++;
+            String continuar = "si";
+            if (contadorContinuar != 1) {
+                System.out.println("Deseas visualizar otro ejercicio si/no");
+                continuar = sc.next().toLowerCase();
+            }
+            if (continuar.equals("si")) {
+                System.out.println("Digita el numero del ejercicio que deseas visualizar (1 a 10)");
+                System.out.println(
+                        "1. Figuras Geometricas \n2. Sistema de notificaciones \n3. Banco y cuentas \n4. Juego de cartas \n5. Tienda en linea \n6. Animales y sonido \n7. Formas geometricas y areas \n8. Empleados y salarios \n9. Instrumentos musicales \n10. Figuras en un lienzo \n11. Salir");
+                int numEjercicio = sc.nextInt();
 
-                for (IFigurasGeometricas figura : figurasGeometricas) {
-                    figura.calculoArea();
+                switch (numEjercicio) {
+                    case 1:
+                        // Ejercicio 1 --->Figuras Geometricas
+                        IFigurasGeometricas cuadrado = new Cuadrado(6);
+                        IFigurasGeometricas triangulo = new Triangulo(2, 5, 6);
+                        IFigurasGeometricas circulo = new Circulo(7);
+                        cuadrado.calculoArea();
+                        cuadrado.calculoPerimetro();
+                        triangulo.calculoArea();
+                        triangulo.calculoPerimetro();
+                        circulo.calculoArea();
+                        circulo.calculoPerimetro();
+
+                        break;
+                    case 2:
+                        // Ejercicio 2 --->Sistema de notificaciones
+                        ISistemaNotificaciones correoElectronico = new CorreoElectronico(
+                                "Su factura del agua ha sido pagada con exito");
+                        ISistemaNotificaciones mensajeTexto = new MensajeTexto(
+                                "Su factura del agua ha sido pagada con exito");
+                        ISistemaNotificaciones notificacionPush = new NotificacionPush(
+                                "Su factura del agua ha sido pagada con exito");
+                        List<ISistemaNotificaciones> tiposMensaje = new ArrayList<>();
+                        tiposMensaje.add(correoElectronico);
+                        tiposMensaje.add(mensajeTexto);
+                        tiposMensaje.add(notificacionPush);
+                        for (ISistemaNotificaciones tipo : tiposMensaje) {
+                            tipo.enviar();
+                        }
+                        break;
+                    case 3:
+                        // Ejercicio 3 --->Banco y Cuentas
+                        System.out.println("En que tipo de cuenta deseas realizar operaciones (1 o 2)");
+                        System.out.println("1. Cuenta de ahorro \n2. Cuenta corriente");
+                        int tipoCuenta = sc.nextInt();
+                        System.out.println("El saldo de tu cuenta es:");
+                        int saldo = sc.nextInt();
+                        boolean infinito = true;
+
+                        switch (tipoCuenta) {
+                            case 1:
+                                ISistemaBancario cuenta1 = new CuentaAhorro(saldo);
+
+                                while (infinito) {
+                                    System.out.println("\n¿Que operacion deseas realizar?");
+                                    System.out.println("1. Depositar dinero \n2. Retirar dinero \n3. Salir");
+                                    int tipoOperacion = sc.nextInt();
+                                    if (tipoOperacion == 1) {
+                                        System.out.println("¿Cuanto dinero deseas depositar?");
+                                        double deposito = sc.nextDouble();
+                                        cuenta1.depositarDinero(deposito);
+                                    } else if (tipoOperacion == 2) {
+                                        System.out.println("¿Cuanto dinero deseas retirar?");
+                                        double retiro = sc.nextDouble();
+                                        cuenta1.retirarDinero(retiro);
+                                    } else if (tipoOperacion == 3) {
+                                        break;
+                                    }
+                                }
+                                break;
+
+                            case 2:
+                                ISistemaBancario cuenta2 = new CuentaCorriente(saldo);
+                                while (infinito) {
+                                    System.out.println("\n¿Que operacion deseas realizar?");
+                                    System.out.println("1. Depositar dinero \n2. Retirar dinero \n3. Salir");
+                                    int tipoOperacion2 = sc.nextInt();
+                                    if (tipoOperacion2 == 1) {
+                                        System.out.println("¿Cuanto dinero deseas depositar?");
+                                        double deposito = sc.nextDouble();
+                                        cuenta2.depositarDinero(deposito);
+                                    } else if (tipoOperacion2 == 2) {
+                                        System.out.println("¿Cuanto dinero deseas retirar?");
+                                        double retiro = sc.nextDouble();
+                                        cuenta2.retirarDinero(retiro);
+                                    } else if (tipoOperacion2 == 3) {
+                                        break;
+                                    }
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+
+                        break;
+                    case 4:
+                        break;
+                    case 5:
+                        // Ejercicio 5 --->Tienda en linea
+                        ISistemaTienda producto1 = new Ropa("Camisa", 30000, "M");
+                        ISistemaTienda producto2 = new Electronica("Celular", 1500000, "Samsung Galaxy");
+                        ISistemaTienda producto3 = new Libro("La Voragine", 70000, 900);
+                        List<ISistemaTienda> productos = new ArrayList<>();
+                        productos.add(producto1);
+                        productos.add(producto2);
+                        productos.add(producto3);
+                        int total = 0;
+                        for (ISistemaTienda producto : productos) {
+                            producto.mostrarDetalles();
+                            total += producto.calcularPrecio();
+                        }
+                        System.out.println("El precio total de su compra es: " + total);
+                        break;
+                    case 6:
+                        // Ejercicio 6 ---> Animales y sonidos
+
+                        Perro perro = new Perro("Patacon");
+                        Gato gato = new Gato("Misifu");
+                        Pajaro pajaro = new Pajaro("Poncho");
+                        List<TipoAnimales> animales = new ArrayList<>();
+                        animales.add(perro);
+                        animales.add(gato);
+                        animales.add(pajaro);
+                        for (TipoAnimales animal : animales) {
+                            animal.hacerSonido();
+                        }
+                        break;
+                    case 7:
+                        // Ejercicio 7 --->Figuras Geometricas y Areas
+                        IFormasGeometricas cuadrado2 = new Cuadrado2(6);
+                        IFormasGeometricas triangulo2 = new Triangulo2(2, 5, 6);
+                        IFormasGeometricas circulo2 = new Circulo2(7);
+                        List<IFormasGeometricas> formasGeometricas = new ArrayList<>();
+                        formasGeometricas.add(cuadrado2);
+                        formasGeometricas.add(triangulo2);
+                        formasGeometricas.add(circulo2);
+
+                        for (IFormasGeometricas figura : formasGeometricas) { // polimorfismo
+                            figura.calculoArea();
+                            figura.calculoPerimetro();
+                        }
+                        break;
+                    case 8:
+                        break;
+                    case 9:
+                        break;
+                    case 10:
+                        break;
+                    case 11:
+                        // Salir
+                        repetirMenuPrincipal = false;
+                        break;
+                    default:
+                        System.out.println("Digita un numero valido");
+                        break;
                 }
+            } else if (continuar.equals("no")) {
                 break;
-            case 2:
-                // Ejercicio 2 --->Sistema de notificaciones
-                ISistemaNotificaciones correoElectronico = new CorreoElectronico(
-                        "Su factura del agua ha sido pagada con exito");
-                ISistemaNotificaciones mensajeTexto = new MensajeTexto(
-                        "Su factura del agua ha sido pagada con exito");
-                ISistemaNotificaciones notificacionPush = new NotificacionPush(
-                        "Su factura del agua ha sido pagada con exito");
-                List<ISistemaNotificaciones> tiposMensaje = new ArrayList<>();
-                tiposMensaje.add(correoElectronico);
-                tiposMensaje.add(mensajeTexto);
-                tiposMensaje.add(notificacionPush);
-                tiposMensaje.forEach(
-                        tipoMensaje -> {
-                            tipoMensaje.enviar();
-                        });
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-            case 6:
-                break;
-            case 7:
-                break;
-            case 8:
-                break;
-            case 9:
-                break;
-            case 10:
-                break;
+
+            }
+
         }
+
         sc.close();
+    }
+
+    public static String continuar(Scanner sc, int contadorContinuar) {
+
+        return null;
     }
 
 }
