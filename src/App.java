@@ -6,6 +6,11 @@ import ejercicio1.figurasGeometricas.Circulo;
 import ejercicio1.figurasGeometricas.Cuadrado;
 import ejercicio1.figurasGeometricas.Triangulo;
 import ejercicio1.figurasGeometricas.interfaces.IFigurasGeometricas;
+import ejercicio10.figurasenunlienzo.Circulo3;
+import ejercicio10.figurasenunlienzo.Cuadrado3;
+import ejercicio10.figurasenunlienzo.Lienzo;
+import ejercicio10.figurasenunlienzo.Triangulo3;
+import ejercicio10.figurasenunlienzo.interfaces.IDibujable;
 import ejercicio2.sistemanotificaciones.CorreoElectronico;
 import ejercicio2.sistemanotificaciones.MensajeTexto;
 import ejercicio2.sistemanotificaciones.NotificacionPush;
@@ -13,6 +18,8 @@ import ejercicio2.sistemanotificaciones.interfaces.ISistemaNotificaciones;
 import ejercicio3.bancoycuentas.CuentaAhorro;
 import ejercicio3.bancoycuentas.CuentaCorriente;
 import ejercicio3.bancoycuentas.interfaces.ISistemaBancario;
+import ejercicio4.juegodecartas.Baraja;
+import ejercicio4.juegodecartas.interfaces.ISistemaCartas;
 import ejercicio5.tiendaenlinea.Electronica;
 import ejercicio5.tiendaenlinea.Libro;
 import ejercicio5.tiendaenlinea.Ropa;
@@ -25,6 +32,13 @@ import ejercicio7.formasgeometricasyareas.Circulo2;
 import ejercicio7.formasgeometricasyareas.Triangulo2;
 import ejercicio7.formasgeometricasyareas.Cuadrado2;
 import ejercicio7.formasgeometricasyareas.interfaces.IFormasGeometricas;
+import ejercicio8.empleadosysalarios.EmpleadoAsalariado;
+import ejercicio8.empleadosysalarios.EmpleadoPorHoras;
+import ejercicio8.empleadosysalarios.TiposEmpleados;
+import ejercicio9.instrumentosmusicales.Guitarra;
+import ejercicio9.instrumentosmusicales.InstrumentosMusicales;
+import ejercicio9.instrumentosmusicales.Piano;
+import ejercicio9.instrumentosmusicales.Violin;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -130,6 +144,19 @@ public class App {
 
                         break;
                     case 4:
+                        // Juego de cartas
+                        Baraja baraja = new Baraja();
+                        baraja.mezclar();
+
+                        for (int i = 0; i < 5; i++) {
+                            ISistemaCartas carta = baraja.sacarCarta();
+                            if (carta != null) {
+                                carta.mostrarCarta();
+                            } else {
+                                System.out.println("No quedan más cartas en la baraja.");
+                                break;
+                            }
+                        }
                         break;
                     case 5:
                         // Ejercicio 5 --->Tienda en linea
@@ -177,10 +204,39 @@ public class App {
                         }
                         break;
                     case 8:
+                        // Empleados y Salarios
+                        EmpleadoAsalariado asalariado = new EmpleadoAsalariado(2500000); // mensual
+                        EmpleadoPorHoras empleadoPorHoras = new EmpleadoPorHoras(15000, 8, 5);// por horas
+                        List<TiposEmpleados> empleados = new ArrayList<>();
+                        empleados.add(asalariado);
+                        empleados.add(empleadoPorHoras);
+                        for (TiposEmpleados empleado : empleados) {
+                            empleado.calculoSalario();
+                        }
                         break;
                     case 9:
+                        // Instrumentos Musicales
+                        Guitarra guitarra = new Guitarra();
+                        Piano piano = new Piano();
+                        Violin violin = new Violin();
+                        List<InstrumentosMusicales> instrumentosMusicales = new ArrayList<>();
+                        instrumentosMusicales.add(guitarra);
+                        instrumentosMusicales.add(piano);
+                        instrumentosMusicales.add(violin);
+                        for (InstrumentosMusicales instrumento : instrumentosMusicales) {
+                            instrumento.tocar();
+                        }
                         break;
                     case 10:
+                        // Figuras en un lienzo
+                        IDibujable cuadrado3 = new Cuadrado3(7);
+                        IDibujable triangulo3 = new Triangulo3(5, 8, 4);
+                        IDibujable circulo3 = new Circulo3(6);
+                        Lienzo lienzo = new Lienzo(cuadrado3, triangulo3, circulo3);
+                        List<IDibujable> listaFiguradDibujables = lienzo.listarFiguras();
+                        for (IDibujable fig : listaFiguradDibujables) {
+                            fig.dibujar();
+                        }
                         break;
                     case 11:
                         // Salir
